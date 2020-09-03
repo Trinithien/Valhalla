@@ -1,7 +1,8 @@
 # bot.py
 import os
 import sched, time
-
+import board
+import neopixel
 import discord
 from dotenv import load_dotenv
 
@@ -11,6 +12,7 @@ TOKEN = os.getenv('DISCORD_TOKEN')
 client = discord.Client()
 s = sched.scheduler(time.time, time.sleep)
 
+pixels = neopixel.NeoPixel(board.D21, 120, brightness=0.2)
 
 def check_online(sc):
     # Henter alle medlemene den har tilgang til.
@@ -19,9 +21,21 @@ def check_online(sc):
     for member in members:
         # Hvis statusen per medlem er det samme som status online printer vi den personen.
         if member.status == discord.Status.online:
-            print(member)
-
-    s.enter(60, 1, check_online, (sc,))
+            print(member,member.status)
+            if member.id == 166164767701073921:
+                pixels[0]= (0,0,255)
+            if member.id == 294969517237469185:
+                pixels[2]= (0,0,255)
+        elif member.status == discord.Status.offline:
+            if member.id == 166164767701073921:
+                pixels[0]= (0,0,0)
+            if member.id == 294969517237469185:
+                pixels[2]= (0,0,0)
+            print(member,member.status)
+        else:
+            print(member,member.status)
+            
+    s.enter(5, 1, check_online, (sc,))
 
 
 @client.event
@@ -30,7 +44,27 @@ async def on_ready():
     print(client.user.name)
     print(client.user.id)
     print('------')
-    s.enter(60, 1, check_online, (s,))
+    # Henter alle medlemene den har tilgang til.
+    members = client.get_all_members()
+    # For hver member i arrayet (noe med flere elementer) members hentet ovenfra.
+    for member in members:
+        # Hvis statusen per medlem er det samme som status online printer vi den personen.
+        
+        if member.status == discord.Status.online:
+            print(member,member.status)
+            if member.id == 166164767701073921:
+                pixels[0]= (0,0,255)
+            if member.id == 294969517237469185:
+                pixels[2]= (0,0,255)
+        elif member.status == discord.Status.offline:
+            print(member,member.status)
+            if member.id == 166164767701073921:
+                pixels[0]= (0,0,0)
+            if member.id == 294969517237469185:
+                pixels[2]= (0,0,0)
+        else:
+            print(member,member.status)
+    s.enter(5, 1, check_online, (s,))
     s.run()
 
 
