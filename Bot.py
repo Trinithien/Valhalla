@@ -26,6 +26,8 @@ def check_online():
             if member.id == 294969517237469185:
                 pixels[2]= (0,0,255)
                 print('on')
+            if member.id == 164089595938471936:
+                pixels[3,100]= (255,255,0)
         elif member.status == discord.Status.offline:
             if member.id == 166164767701073921:
                 pixels[0]= (0,0,0)
@@ -33,6 +35,8 @@ def check_online():
             if member.id == 294969517237469185:
                 pixels[2]= (0,0,0)
                 print('off')
+            if member.id == 164089595938471936:
+                pixels[3,100]= (0,0,0)
             print(member,member.status)
         else:
             print(member,member.status)
@@ -50,5 +54,6 @@ async def on_ready():
 @client.event
 async def on_message(message):
     print(message.author.id)
+
 
 client.run(TOKEN)
