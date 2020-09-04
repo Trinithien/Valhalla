@@ -20,27 +20,31 @@ def check_online():
         # Hvis statusen per medlem er det samme som status online printer vi den personen.
         if member.status == discord.Status.online:
             print(member,member.status)
-            if member.id == 166164767701073921:
+            if member.id == 166164767701073921: #Tobi
                 pixels[0]= (0,0,255)
                 print('on')
-            if member.id == 294969517237469185:
+            if member.id == 294969517237469185: #Turbo
                 pixels[2]= (0,0,255)
                 print('on')
-            if member.id == 164089595938471936:
-                pixels[3,100]= (255,255,0)
+            if member.id == 164089595938471936: #Quinn
+                for i in range(3,100):
+                    pixels[i]= (255,255,0)
+                    time.sleep(1/1000)
         elif member.status == discord.Status.offline:
-            if member.id == 166164767701073921:
+            if member.id == 166164767701073921: #Tobi
                 pixels[0]= (0,0,0)
                 print('off')
-            if member.id == 294969517237469185:
+            if member.id == 294969517237469185: #Turbo
                 pixels[2]= (0,0,0)
                 print('off')
-            if member.id == 164089595938471936:
-                pixels[3,100]= (0,0,0)
+            if member.id == 164089595938471936: #Quinn
+                for i in range(3,100):
+                    pixels[i]= (0,0,0)
+                    time.sleep(1/1000)
             print(member,member.status)
         else:
             print(member,member.status)
-    Timer(60.0,check_online).start() # Method calls itself again after 60 seconds
+    Timer(10.0,check_online).start() # Method calls itself again after 60 seconds
 
             
 @client.event
