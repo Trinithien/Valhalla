@@ -36,7 +36,7 @@ def check_online():
             print(member,member.status)
         else:
             print(member,member.status)
-    Timer(10.0,check_online).start() # Method calls itself again after 10 seconds
+    Timer(60.0,check_online).start() # Method calls itself again after 60 seconds
 
             
 @client.event
